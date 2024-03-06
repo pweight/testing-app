@@ -1,4 +1,6 @@
 ﻿
+using System.Globalization;
+
 namespace testing_app;
 
 class Program
@@ -20,8 +22,21 @@ class Program
 
         order.ApplyDiscount();
 
-        order.OrderItems.ForEach(item => Console.WriteLine($"LINE ITEM TOTALS: {item.Name} - {item.LineTotal}"));
-        Console.WriteLine($"ORDER TOTAL: {order.OrderItems.Sum(item => item.LineTotal)}");
+        // order.OrderItems.ForEach(item => Console.WriteLine($"LINE ITEM TOTALS: {item.Name} - {item.LineTotal}"));
+        // Console.WriteLine($"ORDER TOTAL: {order.OrderItems.Sum(item => item.LineTotal)}");
+
+        string establishedOn = "04/04/2023";
+        DateTimeOffset establishedOnDateTime = DateTimeOffset.ParseExact(establishedOn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+        // Console.WriteLine(establishedOnDateTime);
+
+        string accountNumber = "0917408123192837";
+        string lastFour = accountNumber.Substring(accountNumber.Length - 4);
+        string accountNumber2 = "2903718078401143";
+        string lastFour2 = accountNumber2[^4..];
+
+        Console.WriteLine(lastFour);
+        Console.WriteLine(lastFour2);
+
     }
 }
 
@@ -57,7 +72,7 @@ public class Order
             foreach (var item in eligibleItems)
             {
                 item.LineTotal -= item.SingleItemPrice * item.Quantity / item.Quantity / eligibleItemsTotal * discount.CouponDiscount;
-                Console.WriteLine($"{item.Name} - {item.LineTotal}");
+                // Console.WriteLine($"{item.Name} - {item.LineTotal}");
             }
         }
 
