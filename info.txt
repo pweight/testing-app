@@ -1,0 +1,38 @@
+Planning doc for new Nerd Core endpoints that will simplify account creation for other brands and for creating a standard wallet that each brand can use.
+
+What items do we need?
+--- Account Creation:
+
+-Databases - Connect_Membership_Partners
+SignUpEndpoint - Update or new Column?
+?? LoginEndpoint - Update or new Column?
+
+Connect_Membership_PartnerUserIds
+    PartnerMemberId - now the Core id
+
+Potential changes to sign up flows
+1. Normal signup for Connect and/or linking accounts
+2. User selects the auto linking for the brand that they want
+    1a/2a. Have one endpoint for creation that passes in their info and brands they want to sign up.
+        a. Do we wait for this to finish or fire off some tasks/topics for creating these new accounts.
+        b. Make sure we insert these connections in to partnerUserIds to indicate we are tied to them
+3. Verify Email - Just for connect?  Or for each brand?
+
+Potential Gotchas and Questions???
+    What if they use the brand website to reset their password?  
+    Does that affect linking usage and if we want to send them to the brand site and for logging in?  
+    Will those endpoints be unified?
+
+
+--- Wallet Creation:
+
+After sign up process
+Get list of accounts that were selected from partnerUserIds
+1. Setup wallet passcode and recovery phrase
+    1.a. Can we have a cooler recovery phrase click to put in order or drag and drop???
+2. Call for each brand account that was Setup
+
+
+How do we handle error states?  Do we get enough information back to show what is wrong?
+
+Do we need a new brand management page or something we can add management views.
