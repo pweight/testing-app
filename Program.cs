@@ -7,6 +7,33 @@ class Program
 {
     static void Main(string[] args)
     {
+        StringNullStuff();
+        // OrderLineItemStuff();
+        // DateStuff();
+        // StringStuff();
+    }
+
+    private static void StringNullStuff()
+    {
+        string myString = null;
+        Console.WriteLine(string.IsNullOrWhiteSpace(myString));  // Outputs: True
+
+        myString = "";
+        Console.WriteLine(string.IsNullOrWhiteSpace(myString));  // Outputs: True
+
+        myString = " ";
+        Console.WriteLine(string.IsNullOrWhiteSpace(myString));  // Outputs: True
+
+        myString = "Hello, World!";
+        Console.WriteLine(string.IsNullOrWhiteSpace(myString));  // Outputs: False
+
+        string myDefaultString = default!;
+        Console.WriteLine(myDefaultString);
+        Console.WriteLine(string.IsNullOrWhiteSpace(myDefaultString));  // Outputs: True
+    }
+
+    private static void OrderLineItemStuff()
+    {
         var order = new Order
         {
             CouponDiscount = 1000,
@@ -24,11 +51,17 @@ class Program
 
         // order.OrderItems.ForEach(item => Console.WriteLine($"LINE ITEM TOTALS: {item.Name} - {item.LineTotal}"));
         // Console.WriteLine($"ORDER TOTAL: {order.OrderItems.Sum(item => item.LineTotal)}");
+    }
 
+    private static void DateStuff()
+    {
         string establishedOn = "04/04/2023";
         DateTimeOffset establishedOnDateTime = DateTimeOffset.ParseExact(establishedOn, "MM/dd/yyyy", CultureInfo.InvariantCulture);
         // Console.WriteLine(establishedOnDateTime);
+    }
 
+    public static void StringStuff()
+    {
         string accountNumber = "0917408123192837";
         string lastFour = accountNumber.Substring(accountNumber.Length - 4);
         string accountNumber2 = "2903718078401143";
@@ -36,7 +69,6 @@ class Program
 
         Console.WriteLine(lastFour);
         Console.WriteLine(lastFour2);
-
     }
 }
 
