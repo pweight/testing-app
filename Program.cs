@@ -7,10 +7,19 @@ class Program
 {
     static void Main(string[] args)
     {
-        StringNullStuff();
+        AddingNumbersSequentially(1, 1000);
+        // StringNullStuff();
         // OrderLineItemStuff();
         // DateStuff();
         // StringStuff();
+    }
+
+    private static void AddingNumbersSequentially(int start, int limit)
+    {
+        // Add numberup from start to limit inclusive and sequentially
+        // S = n/2(a + l)
+        int total = limit / 2 * (start + limit);
+        Console.WriteLine(total);
     }
 
     private static void StringNullStuff()
