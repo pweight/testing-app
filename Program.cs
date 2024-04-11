@@ -1,17 +1,50 @@
 ﻿
 using System.Globalization;
+using Connect.HighLevel.Client;
+using Connect.HighLevel.Service;
+using Microsoft.Extensions.Logging;
 
 namespace testing_app;
 
 class Program
 {
-    static void Main(string[] args)
+    async static Task Main(string[] args)
     {
-        AddingNumbersSequentially(1, 1000);
+        await HighLevelClientStuff();
+        // AddingNumbersSequentially(1, 1000);
         // StringNullStuff();
         // OrderLineItemStuff();
         // DateStuff();
         // StringStuff();
+    }
+
+    private static async Task HighLevelClientStuff()
+    {
+        try
+        {
+            var client = new HighLevelClient("GO_HIGH_LEVEL_API_KEY");
+            var request = new Connect.HighLevel.Models.HighLevelContactRequest
+            {
+                FirstName = "Preston",
+                LastName = "Weight",
+                Email = "pweight+test1@nerdsunite.me",
+                Tags = new List<string> { "Gala", "Hyper" }
+            };
+
+            var response = await client.AddUpdateContactAsync("9c5wHGZk7rn52UIHwicl", request);
+            Console.WriteLine(response.Id);
+            Console.WriteLine(string.Join(", ", response.Tags));
+
+            // var apiClient = new HighLevelApiService("GO_HIGH_LEVEL_API_KEY", new LoggerFactory().CreateLogger<HighLevelApiService>());
+            // var searchResponse = await apiClient.SearchContactAsync("pweight+test1@nerdsunite.me");
+
+            // Console.WriteLine(searchResponse.FirstOrDefault()?.Id);
+        
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     private static void AddingNumbersSequentially(int start, int limit)
