@@ -1,8 +1,5 @@
 ﻿
 using System.Globalization;
-using Connect.HighLevel.Client;
-using Connect.HighLevel.Service;
-using Microsoft.Extensions.Logging;
 
 namespace testing_app;
 
@@ -10,30 +7,80 @@ class Program
 {
     async static Task Main(string[] args)
     {
-        await HighLevelClientStuff();
+        MoreDateStuff();
+        // RunRunner();
+        // await HighLevelClientStuff();
         // AddingNumbersSequentially(1, 1000);
+        
         // StringNullStuff();
         // OrderLineItemStuff();
         // DateStuff();
         // StringStuff();
     }
 
+    private static void MoreDateStuff()
+    {
+        var dateString = "5/27/2024 11:55:00 PM -06:00";
+        var date = DateTimeOffset.Parse(dateString, CultureInfo.InvariantCulture);
+        Console.WriteLine(date.ToString("yyyy-MM-ddTHH:mm:ssZ"));
+    }
+
+    private static void RunRunner()
+    {
+        // Define the path to the file
+        string filePath = @"/Users/prestonweight/Desktop/Main.go";
+
+        // Run the AppendHelloWorld method indefinitely
+        while (true)
+        {
+            AppendHelloWorld(filePath);
+            // Wait for a random amount of time between 1 and 30 seconds
+            Thread.Sleep(new Random().Next(1000, 30001));
+        }
+    }
+
+    static void AppendHelloWorld(string filePath)
+    {
+        Console.WriteLine("Appending Hello World to the file...");
+        // Ensure the file exists or create a new one
+        if (!File.Exists(filePath))
+        {
+            using (StreamWriter sw = File.CreateText(filePath))
+            {
+                sw.WriteLine("package main");  // Initial setup for a Go file, if needed
+                sw.WriteLine("import \"fmt\"");
+                sw.WriteLine();
+                sw.WriteLine("func main() {");
+                sw.WriteLine("\tfmt.Println(\"Hello World\")");
+                sw.WriteLine("}");
+            }
+        }
+        else
+        {
+            // Append "Hello World" to the existing file
+            using (StreamWriter sw = File.AppendText(filePath))
+            {
+                sw.WriteLine("\tfmt.Println(\"Hello World\")"); // Adding new line to the main function
+            }
+        }
+    }
+
     private static async Task HighLevelClientStuff()
     {
         try
         {
-            var client = new HighLevelClient("GO_HIGH_LEVEL_API_KEY");
-            var request = new Connect.HighLevel.Models.HighLevelContactRequest
-            {
-                FirstName = "Preston",
-                LastName = "Weight",
-                Email = "pweight+test1@nerdsunite.me",
-                Tags = new List<string> { "Gala", "Hyper" }
-            };
+            // var client = new HighLevelClient("GO_HIGH_LEVEL_API_KEY");
+            // var request = new Connect.HighLevel.Models.HighLevelContactRequest
+            // {
+            //     FirstName = "Preston",
+            //     LastName = "Weight",
+            //     Email = "pweight+test1@nerdsunite.me",
+            //     Tags = new List<string> { "Gala", "Hyper" }
+            // };
 
-            var response = await client.AddUpdateContactAsync("9c5wHGZk7rn52UIHwicl", request);
-            Console.WriteLine(response.Id);
-            Console.WriteLine(string.Join(", ", response.Tags));
+            // var response = await client.AddUpdateContactAsync("9c5wHGZk7rn52UIHwicl", request);
+            // Console.WriteLine(response.Id);
+            // Console.WriteLine(string.Join(", ", response.Tags));
 
             // var apiClient = new HighLevelApiService("GO_HIGH_LEVEL_API_KEY", new LoggerFactory().CreateLogger<HighLevelApiService>());
             // var searchResponse = await apiClient.SearchContactAsync("pweight+test1@nerdsunite.me");
